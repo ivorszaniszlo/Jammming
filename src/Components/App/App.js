@@ -10,7 +10,9 @@ class App extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        "searchResults": []
+        "searchResults": [],
+        "playlistName": 'New Playlist',
+        "playlistTracks": []
       };
     }
 
@@ -24,7 +26,10 @@ class App extends React.Component {
               <SearchResults 
                 searchResults={this.state.searchResults} 
               />
-              <Playlist />
+              <Playlist 
+                playlistName={this.state.playlistName} 
+                playlistTracks={this.state.playlistTracks} 
+              />
             </div>
           </div>
         </div>
