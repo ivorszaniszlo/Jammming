@@ -23,8 +23,8 @@ In this Codecademy project, was built a React web application called Jammming. T
 
 ## Technolgies <a id="technolgies"></a>
 
-React - Front End Library
-Spotify API
+* React - Front End Library
+* Spotify API
 
 ## Setup & Start <a id="setup"></a>
 
