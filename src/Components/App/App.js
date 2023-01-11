@@ -8,32 +8,43 @@ import Playlist from '../Playlist/Playlist';
 class App extends React.Component {
 
     constructor(props) {
-      super(props);
-      this.state = {
-        "searchResults": [],
-        "playlistName": 'New Playlist',
-        "playlistTracks": []
-      };
+        super(props);
+        this.state = {
+            "searchResults": [],
+            "playlistName": 'New Playlist',
+            "playlistTracks": []
+        };
+        this.addTrack = this.addTrack.bind(this);
+    }
+
+    addTrack(track) {
+        let thisPlaylistTracks = this.state.playlistTracks;
+        if (thisPlaylistTracks.find(element => element.id === track.id)) {
+            return;
+        } else {
+            thisPlaylistTracks.push(track);
+            this.setState({ playlistTracks: thisPlaylistTracks });
+        }
     }
 
     render() {
-      return (
-        <div>
-          <h1>Ja<span className="highlight">mmm</span>ing</h1>
-          <div className="App">
-            <SearchBar />
-            <div className="App-playlist">
-              <SearchResults 
-                searchResults={this.state.searchResults} 
-              />
-              <Playlist 
-                playlistName={this.state.playlistName} 
-                playlistTracks={this.state.playlistTracks} 
-              />
+        return (
+            <div>
+                <h1>Ja<span className="highlight">mmm</span>ing</h1>
+                <div className="App">
+                    <SearchBar />
+                    <div className="App-playlist">
+                        <SearchResults
+                            searchResults={this.state.searchResults}
+                        />
+                        <Playlist
+                            playlistName={this.state.playlistName}
+                            playlistTracks={this.state.playlistTracks}
+                        />
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      );
+        );
     }
 }
 
