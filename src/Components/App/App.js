@@ -15,16 +15,23 @@ class App extends React.Component {
             "playlistTracks": []
         };
         this.addTrack = this.addTrack.bind(this);
+        this.removeTrack = this.removeTrack.bind(this);
     }
 
     addTrack(track) {
         let thisPlaylistTracks = this.state.playlistTracks;
-        if (thisPlaylistTracks.find(element => element.id === track.id)) {
+        if (!thisPlaylistTracks.find(element => element.id === track.id)) {
             return;
         } else {
             thisPlaylistTracks.push(track);
             this.setState({ playlistTracks: thisPlaylistTracks });
         }
+    }
+
+    removeTrack(track) {
+        let thisPlaylistTracks = this.state.playlistTracks;
+        let newTracks = thisPlaylistTracks.filter(element => element.id !== track.id);
+        this.setState({ playlistTracks: newTracks });
     }
 
     render() {
@@ -35,7 +42,7 @@ class App extends React.Component {
                     <SearchBar />
                     <div className="App-playlist">
                         <SearchResults
-                            searchResults={this.state.searchResults}
+                            searchResults={this.state.searchResults} onAdd={this.addTrack}
                         />
                         <Playlist
                             playlistName={this.state.playlistName}
