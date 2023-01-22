@@ -6,6 +6,7 @@
 * [Screenshot](#screenshot)
 * [Technolgies](#technolgies)
 * [Setup & Start](#setup)
+* [Deploy](#deploy)
 * [Created](#created)
 * [License](#license)
 
@@ -31,6 +32,12 @@ In this Codecademy project, was built a React web application called Jammming. T
 * Clone or download the repo
 * Open the directory and run **npm** to install
 * Run development application by using **npm start**
+
+## Deploy <a id="deploy"></a>
+
+* You can start by installing surge globally.**npm install --global surge**.
+* [Check the documentation](https://surge.sh/)
+* Deployed on [ivor.surge.sh](https://ivor.surge.sh)
 
 ## Created <a id="created"></a>
 
