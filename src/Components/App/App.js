@@ -23,16 +23,13 @@ class App extends React.Component {
     }
 
     addTrack(track) {
-        if (
-            this.state.playlistTracks.find((savedTrack) => savedTrack.id === track.id)
-          ) {
+        let thisPlaylistTracks = this.state.playlistTracks;
+        if (!thisPlaylistTracks.find(element => element.id === track.id)) {
             return;
-          }
-          //Track not found in PLaylist
-          //Array copy
-          let newPlaylistTrack = [...this.state.playlistTracks];
-          newPlaylistTrack.push(track);
-          this.setState({ playlistTracks: newPlaylistTrack });
+        } else {
+            thisPlaylistTracks.push(track);
+            this.setState({ playlistTracks: thisPlaylistTracks });
+        }
     }
 
     removeTrack(track) {
@@ -70,7 +67,7 @@ class App extends React.Component {
             <div>
                 <h1>Ja<span className="highlight">mmm</span>ing</h1>
                 <div className="App">
-                    <SearchBar onSearch="search"/>
+                    <SearchBar onSearch={this.search}/>
                     <div className="App-playlist">
                         <SearchResults
                             searchResults={this.state.searchResults} onAdd={this.addTrack}
