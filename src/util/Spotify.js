@@ -2,6 +2,8 @@ let accessToken;
 const clientId = process.env.REACT_APP_CLIENT_ID;
 const redirectUri = process.env.REACT_APP_REDIRECT_URL;
 
+const localStorageKey = "accessToken";
+
 const Spotify = {
     getAccessToken() {
         if (accessToken) {

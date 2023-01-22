@@ -55,4 +55,9 @@ class Track extends React.Component {
     }
 }
 
+Track.defaultProps = {
+    onAdd: null,
+    onRemove: null,
+  };
+
 export default Track;
