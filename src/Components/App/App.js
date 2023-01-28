@@ -4,6 +4,7 @@ import './App.css';
 import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
 import Playlist from '../Playlist/Playlist';
+import ConnectBtn from '../ConnectBtn/ConnectBtn';
 import Spotify from '../../util/Spotify';
 
 class App extends React.Component {
@@ -13,13 +14,25 @@ class App extends React.Component {
         this.state = {
             "searchResults": [],
             "playlistName": 'New Playlist',
-            "playlistTracks": []
+            "playlistTracks": [],
+            "connected": '',
+            "profileImage": []
         };
         this.addTrack = this.addTrack.bind(this);
         this.removeTrack = this.removeTrack.bind(this);
         this.updatePlaylistName = this.updatePlaylistName.bind(this);
         this.savePlaylist = this.savePlaylist.bind(this);
         this.search = this.search.bind(this);
+        this.connect = this.connect.bind(this);
+        this.disconnect = this.disconnect.bind(this);
+    }
+
+    componentWillMount() {
+        const newAccessToken = window.location.href.match(/access_token=([^&]*)/);
+        const newExpiresIn = window.location.href.match(/expires_in=([^&]*)/);
+        if (newAccessToken && newExpiresIn) {
+            this.connect();
+        }
     }
 
     addTrack(track) {
@@ -60,12 +73,37 @@ class App extends React.Component {
         });
     }
 
+    connect() {
+        Spotify.connect().then(response => {
+            if (response.id) {
+                this.setState({
+                    connected: response.display_name,
+                    profileImage: response.images[0]
+                });
+            }
+        });
+    }
+
+    disconnect() {
+        Spotify.disconnect();
+        window.location.reload();
+    }
+
     render() {
         return (
             <div>
                 <h1>Ja<span className="highlight">mmm</span>ing</h1>
                 <div className="App">
-                    <SearchBar onSearch={this.search}/>
+                    <ConnectBtn 
+                        onConnect={this.connect} 
+                        onDisconnect={this.disconnect} 
+                        connected={this.state.connected} 
+                        imageUrl={this.state.profileImage}
+                    />
+                    <SearchBar 
+                        onSearch={this.search}
+                        connected={this.state.connected}
+                    />
                     <div className="App-playlist">
                         <SearchResults
                             searchResults={this.state.searchResults} onAdd={this.addTrack}
