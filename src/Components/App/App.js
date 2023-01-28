@@ -1,15 +1,15 @@
 import React from 'react';
-//import logo from '../../logo.svg';
-import './App.css';
+import { BaseComponent } from '../BaseComponent/BaseComponent';
 import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
 import Playlist from '../Playlist/Playlist';
 import ConnectBtn from '../ConnectBtn/ConnectBtn';
 import Spotify from '../../util/Spotify';
+import BlockUI from "../../util/BlockUI/BlockUI";
 import Swal from "sweetalert2";
-import BlockUI from "../BlockUI/BlockUI";
+import './App.css';
 
-class App extends React.Component {
+class App extends BaseComponent {
 
     constructor(props) {
         super(props);
@@ -20,14 +20,7 @@ class App extends React.Component {
             "connected": '',
             "profileImage": []
         };
-        this.addTrack = this.addTrack.bind(this);
-        this.removeTrack = this.removeTrack.bind(this);
-        this.updatePlaylistName = this.updatePlaylistName.bind(this);
-        this.savePlaylist = this.savePlaylist.bind(this);
-        this.search = this.search.bind(this);
-        this.connect = this.connect.bind(this);
-        this.disconnect = this.disconnect.bind(this);
-        this.toggleBlocking = this.toggleBlocking.bind(this);
+        this._bind('addTrack', 'connect', 'disconnect', 'removeTrack','updatePlaylistName', 'savePlaylist', 'search', 'toggleBlocking');
     }
 
     componentWillMount() {

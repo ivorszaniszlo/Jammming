@@ -1,14 +1,13 @@
 import React from 'react';
-import './Playlist.css';
+import { BaseComponent } from '../BaseComponent/BaseComponent';
 import TrackList from '../TrackList/TrackList';
+import './Playlist.css';
 
-class Playlist extends React.Component {
+class Playlist extends BaseComponent {
 
     constructor(props) {
         super(props);
-        this.handleNameChange = this.handleNameChange.bind(this);
-        this.handleKeyUp = this.handleKeyUp.bind(this);
-        this.handleClick = this.handleClick.bind(this);
+        this._bind('handleNameChange', 'handleKeyUp', 'handleClick');
     }
 
     handleNameChange(e) {

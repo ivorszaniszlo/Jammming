@@ -1,15 +1,13 @@
 import React from 'react';
+import { BaseComponent } from '../BaseComponent/BaseComponent';
 import './SearchBar.css';
 
-class SearchBar extends React.Component {
+class SearchBar extends BaseComponent {
 
     constructor(props) {
         super(props);
         this.state = { searchTerm: "" };
-        this.search = this.search.bind(this);
-        this.handleTermChange = this.handleTermChange.bind(this);
-        this.handleKeyUp = this.handleKeyUp.bind(this);
-        this.handleClick = this.handleClick.bind(this);
+        this._bind('search', 'handleTermChange', 'handleKeyUp', 'handleClick');
     }
 
     search() {

@@ -1,10 +1,12 @@
 import React from 'react';
+import { BaseComponent } from '../BaseComponent/BaseComponent';
 import './ConnectBtn.css';
 
-class ConnectBtn extends React.Component {
+
+class ConnectBtn extends BaseComponent {
     constructor(props) {
         super(props);
-        this.handleClick = this.handleClick.bind(this);
+        this._bind('handleClick');
     }
 
     handleClick(event) {

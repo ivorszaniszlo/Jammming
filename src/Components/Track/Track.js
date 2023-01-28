@@ -1,14 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
+import { BaseComponent } from '../BaseComponent/BaseComponent';
 import "boxicons";
 import './Track.css';
 
-class Track extends React.Component {
+class Track extends BaseComponent {
 
     constructor(props) {
         super(props);
-        this.addTrack = this.addTrack.bind(this);
-        this.removeTrack = this.removeTrack.bind(this);
+        this._bind('addTrack', 'removeTrack');
     }
 
     renderAction() {
