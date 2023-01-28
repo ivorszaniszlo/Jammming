@@ -6,6 +6,8 @@ import SearchResults from '../SearchResults/SearchResults';
 import Playlist from '../Playlist/Playlist';
 import ConnectBtn from '../ConnectBtn/ConnectBtn';
 import Spotify from '../../util/Spotify';
+import Swal from "sweetalert2";
+import BlockUI from "../BlockUI/BlockUI";
 
 class App extends React.Component {
 
@@ -25,6 +27,7 @@ class App extends React.Component {
         this.search = this.search.bind(this);
         this.connect = this.connect.bind(this);
         this.disconnect = this.disconnect.bind(this);
+        this.toggleBlocking = this.toggleBlocking.bind(this);
     }
 
     componentWillMount() {
@@ -33,6 +36,14 @@ class App extends React.Component {
         if (newAccessToken && newExpiresIn) {
             this.connect();
         }
+    }
+
+    popupMessage(title, message, icon) {
+        Swal.fire(title, message, icon);
+    }
+
+    toggleBlocking() {
+        this.setState({ blocking: !this.state.blocking });
     }
 
     addTrack(track) {
@@ -67,10 +78,18 @@ class App extends React.Component {
         }
     }
 
-    search(searchTerm) {
-        Spotify.search(searchTerm).then(results => {
-            this.setState({searchResults: results});
-        });
+    async search(searchTerm) {
+        if (searchTerm.trim() === "") {
+            this.popupMessage("Warning!", "Enter a search term.", "warning");
+        } else {
+            this.toggleBlocking();
+            const response = await Spotify.search(searchTerm);
+            this.toggleBlocking();
+            if (!response) return;
+            else if (response.length === 0)
+                this.popupMessage("Error!", `No results found for: ${searchTerm}.`, "error");
+            else this.setState({ searchResults: response });
+        }
     }
 
     connect() {
@@ -117,6 +136,7 @@ class App extends React.Component {
                         />
                     </div>
                 </div>
+                <BlockUI blocking={this.state.blocking} />
             </div>
         );
     }
