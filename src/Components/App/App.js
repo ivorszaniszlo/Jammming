@@ -25,11 +25,9 @@ class App extends React.Component {
     addTrack(track) {
         let thisPlaylistTracks = this.state.playlistTracks;
         if (!thisPlaylistTracks.find(element => element.id === track.id)) {
-            return;
-        } else {
             thisPlaylistTracks.push(track);
-            this.setState({ playlistTracks: thisPlaylistTracks });
-        }
+            this.setState({playlistTracks: thisPlaylistTracks});
+        } 
     }
 
     removeTrack(track) {
@@ -44,12 +42,12 @@ class App extends React.Component {
 
     savePlaylist() {
         let thisPlaylistTracks = this.state.playlistTracks;
-        if(thisPlaylistTracks.length && this.state.playlistName) {
-            const trackURIArray = thisPlaylistTracks.map((track) => track.uri);
+        if (thisPlaylistTracks.length && this.state.playlistName) {
+            let trackURIArray = thisPlaylistTracks.map(track => track.uri);
             Spotify.savePlaylist(this.state.playlistName, trackURIArray).then(() => {
                 this.setState({
-                  playlistName: 'New Playlist',
-                  playlistTracks: []
+                    playlistName: 'New Playlist',
+                    playlistTracks: []
                 });
                 document.getElementById('Playlist-name').value = this.state.playlistName;
             });
@@ -76,6 +74,7 @@ class App extends React.Component {
                             playlistName={this.state.playlistName}
                             playlistTracks={this.state.playlistTracks}
                             onNameChange={this.updatePlaylistName}
+                            onRemove={this.removeTrack}
                             onSave={this.savePlaylist}
                         />
                     </div>

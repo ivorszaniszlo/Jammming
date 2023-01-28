@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
-import "boxicons";
 import './Track.css';
 
 class Track extends React.Component {
@@ -12,27 +11,16 @@ class Track extends React.Component {
     }
 
     renderAction() {
-        return (
-            <button
-                onClick={this.props.isRemoval ? this.removeTrack : this.addTrack}
-                className="Track-action"
-            >
-                {this.props.isRemoval ? (
-                    <box-icon
-                        color="white"
-                        name="minus-circle"
-                        animation="flashing-hover"
-                    ></box-icon>
-                ) : (
-                    <box-icon
-                        color="white"
-                        name="plus-circle"
-                        animation="flashing-hover"
-                    ></box-icon>
-                )}
-            </button>
-        );
-    }
+        if (this.props.isRemoval) {
+          return (
+            <a className="Track-action" onClick={this.removeTrack}>-</a>
+          );
+        } else {
+          return (
+            <a className="Track-action" onClick={this.addTrack} >+</a>
+          );
+        }
+      }
 
     addTrack() {
         this.props.onAdd(this.props.track);
@@ -54,10 +42,5 @@ class Track extends React.Component {
         );
     }
 }
-
-Track.defaultProps = {
-    onAdd: null,
-    onRemove: null,
-  };
 
 export default Track;
