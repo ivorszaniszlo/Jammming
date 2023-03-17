@@ -36,6 +36,7 @@ In this Codecademy project, was built a React web application called Jammming. T
 ## Deploy <a id="deploy"></a>
 
 * You can start by installing surge globally.**npm install --global surge**.
+* npm run build
 * [Check the documentation](https://surge.sh/)
 * Deployed on [ivor.surge.sh](https://ivor.surge.sh)
 
